@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 23:59:05 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/22 23:35:05 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/23 22:45:18 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int		ft_printf(const char *restrict format, ...)
 	t_types		t;
 	int			ret;
 
-	t.count = 0;
 	va_start(ap, format);
+	t.count = 0;
 	t.index = 0;
 	while (format[t.index])
 	{

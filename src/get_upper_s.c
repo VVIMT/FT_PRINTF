@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 00:02:08 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/20 00:02:10 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/24 00:48:33 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,29 @@ int		get_upper_s(t_types *t, wchar_t *s)
 	while (t->upper_dst[++i])
 		ft_putstr_w(unicode_to_utf8(t->upper_dst[i], NULL, &j));
 	free(t->upper_dst);
+	t->ret = j;
 	return (t->ret);
 }
 
 void	push_left_s(t_types *t, wchar_t *s, int *i, int *j)
 {
+	int n;
+	int sig;
+
+	sig = 0;
+	if (t->precision > 0)
+		sig = 1;
 	*i = t->x - *j;
 	t->x = -1;
-	while (s[++t->x] && t->upper_dst[t->x] && (t->precision)-- != 0)
+	while (s[++t->x] && t->precision != 0)
+	{
+		n = 0;
+		unicode_to_utf8(s[t->x], NULL, &n);
+		t->precision = t->precision - n;
+		if (sig == 1 && t->precision < 0)
+			break ;
 		t->upper_dst[t->x] = s[t->x];
+	}
 	while (--(*i) > 0)
 		t->upper_dst[++t->x] = ' ';
 	t->upper_dst[++t->x] = 0;
@@ -52,12 +66,25 @@ void	push_left_s(t_types *t, wchar_t *s, int *i, int *j)
 
 void	push_right_s(t_types *t, wchar_t *s, int *j)
 {
+	int n;
+	int sig;
+
+	sig = 0;
+	if (t->precision > 0)
+		sig = 1;
 	t->x = *j;
 	if (t->precision < t->x && t->precision >= 0)
 		t->x = t->precision;
 	t->y = ft_strlen_w(t->upper_dst);
-	while (--(t->x) >= 0 && --(t->y) >= 0 && (t->precision)-- != 0)
+	while (--(t->x) >= 0 && --(t->y) >= 0 && t->precision != 0)
+	{
+		n = 0;
+		unicode_to_utf8(s[t->x], NULL, &n);
+		t->precision = t->precision - n;
+		if (sig == 1 && t->precision < 0)
+			break ;
 		t->upper_dst[t->y] = s[t->x];
+	}
 }
 
 void	tab_upper_s(t_types *t, wchar_t *s, int *i, int *j)
@@ -71,12 +98,11 @@ void	tab_upper_s(t_types *t, wchar_t *s, int *i, int *j)
 		t->x = t->precision;
 	if (t->width > t->x)
 		t->x = t->width;
-	t->ret = t->x;
 	t->upper_dst = ft_strnew_w(t->x + 1);
 	ft_memset_w(t->upper_dst, 0, t->x + 1);
-	if (t->sig3 == 0 || t->sig5 > 0)
+	if (t->width > t->precision && (t->sig3 == 0 || t->sig5 > 0))
 		ft_memset_w(t->upper_dst, ' ', t->x);
-	else if (t->sig3 > 0)
+	else if (t->width > t->precision && t->sig3 > 0)
 		ft_memset_w(t->upper_dst, '0', t->x);
 	if (t->sig2 > 0)
 		push_left_s(t, s, i, j);
