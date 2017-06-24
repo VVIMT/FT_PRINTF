@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 00:02:08 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/24 10:27:57 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/24 11:07:01 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	push_left_s(t_types *t, wchar_t *s, int *i, int *j)
 void	push_right_s(t_types *t, wchar_t *s, int *i, int *j)
 {
 	*i = t->x - *j;
-	t->mem = 0;
+	t->mem = *j;
 	if (t->precision >= 0)
 	{
 		t->y = -1;
@@ -77,7 +77,7 @@ void	push_right_s(t_types *t, wchar_t *s, int *i, int *j)
 			t->mem = t->n;
 			unicode_to_utf8(s[t->y], NULL, &(t->n));
 		}
-		*i = t->x - t->mem;
+		*i = (t->width > t->mem) ? t->x - t->mem : t->x - t->precision;
 	}
 	t->x = -1;
 	while ((t->sig3 == 0 || t->sig5 > 0) && --(*i) >= 0)
@@ -85,13 +85,10 @@ void	push_right_s(t_types *t, wchar_t *s, int *i, int *j)
 	while (t->sig3 > 0 && --(*i) >= 0)
 		t->upper_dst[++t->x] = '0';
 	t->y = -1;
-	while (s[++t->y] && t->precision != 0)
+	t->n = 0;
+	while (s[++t->y] && t->n < t->mem)
 	{
-		t->n = 0;
 		unicode_to_utf8(s[t->y], NULL, &(t->n));
-		t->precision = t->precision - t->n;
-		if (t->mem > 0 && t->precision < 0)
-			break ;
 		t->upper_dst[++t->x] = s[t->y];
 	}
 	t->upper_dst[++t->x] = 0;
