@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 00:02:08 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/24 00:48:33 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/24 10:27:57 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,49 +42,59 @@ int		get_upper_s(t_types *t, wchar_t *s)
 
 void	push_left_s(t_types *t, wchar_t *s, int *i, int *j)
 {
-	int n;
-	int sig;
-
-	sig = 0;
-	if (t->precision > 0)
-		sig = 1;
 	*i = t->x - *j;
+	t->mem = 0;
+	if (t->precision >= 0)
+	{
+		t->mem = t->precision;
+		*i = t->x - t->mem;
+	}
 	t->x = -1;
 	while (s[++t->x] && t->precision != 0)
 	{
-		n = 0;
-		unicode_to_utf8(s[t->x], NULL, &n);
-		t->precision = t->precision - n;
-		if (sig == 1 && t->precision < 0)
+		t->n = 0;
+		unicode_to_utf8(s[t->x], NULL, &(t->n));
+		t->precision = t->precision - t->n;
+		if (t->mem > 0 && t->precision < 0)
 			break ;
 		t->upper_dst[t->x] = s[t->x];
 	}
-	while (--(*i) > 0)
-		t->upper_dst[++t->x] = ' ';
-	t->upper_dst[++t->x] = 0;
+	while (--(*i) >= 0)
+		t->upper_dst[t->x++] = ' ';
+	t->upper_dst[t->x++] = 0;
 }
 
-void	push_right_s(t_types *t, wchar_t *s, int *j)
+void	push_right_s(t_types *t, wchar_t *s, int *i, int *j)
 {
-	int n;
-	int sig;
-
-	sig = 0;
-	if (t->precision > 0)
-		sig = 1;
-	t->x = *j;
-	if (t->precision < t->x && t->precision >= 0)
-		t->x = t->precision;
-	t->y = ft_strlen_w(t->upper_dst);
-	while (--(t->x) >= 0 && --(t->y) >= 0 && t->precision != 0)
+	*i = t->x - *j;
+	t->mem = 0;
+	if (t->precision >= 0)
 	{
-		n = 0;
-		unicode_to_utf8(s[t->x], NULL, &n);
-		t->precision = t->precision - n;
-		if (sig == 1 && t->precision < 0)
-			break ;
-		t->upper_dst[t->y] = s[t->x];
+		t->y = -1;
+		t->n = 0;
+		while (s[++t->y] && t->n <= t->precision)
+		{
+			t->mem = t->n;
+			unicode_to_utf8(s[t->y], NULL, &(t->n));
+		}
+		*i = t->x - t->mem;
 	}
+	t->x = -1;
+	while ((t->sig3 == 0 || t->sig5 > 0) && --(*i) >= 0)
+		t->upper_dst[++t->x] = ' ';
+	while (t->sig3 > 0 && --(*i) >= 0)
+		t->upper_dst[++t->x] = '0';
+	t->y = -1;
+	while (s[++t->y] && t->precision != 0)
+	{
+		t->n = 0;
+		unicode_to_utf8(s[t->y], NULL, &(t->n));
+		t->precision = t->precision - t->n;
+		if (t->mem > 0 && t->precision < 0)
+			break ;
+		t->upper_dst[++t->x] = s[t->y];
+	}
+	t->upper_dst[++t->x] = 0;
 }
 
 void	tab_upper_s(t_types *t, wchar_t *s, int *i, int *j)
@@ -100,12 +110,8 @@ void	tab_upper_s(t_types *t, wchar_t *s, int *i, int *j)
 		t->x = t->width;
 	t->upper_dst = ft_strnew_w(t->x + 1);
 	ft_memset_w(t->upper_dst, 0, t->x + 1);
-	if (t->width > t->precision && (t->sig3 == 0 || t->sig5 > 0))
-		ft_memset_w(t->upper_dst, ' ', t->x);
-	else if (t->width > t->precision && t->sig3 > 0)
-		ft_memset_w(t->upper_dst, '0', t->x);
 	if (t->sig2 > 0)
 		push_left_s(t, s, i, j);
 	else
-		push_right_s(t, s, j);
+		push_right_s(t, s, i, j);
 }

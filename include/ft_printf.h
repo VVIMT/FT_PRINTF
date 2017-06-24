@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 00:01:09 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/22 23:16:05 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/24 09:26:32 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef struct	s_types
 	int			start;
 	long		index;
 	int			upper_case;
-	long		n;
+	int			mem;
+	int			n;
 	long		x;
 	long		y;
 	char		c;
