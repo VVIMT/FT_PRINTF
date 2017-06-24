@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 00:02:08 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/24 11:07:01 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/24 11:36:58 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ int		get_upper_s(t_types *t, wchar_t *s)
 	return (t->ret);
 }
 
-void	push_left_s(t_types *t, wchar_t *s, int *i, int *j)
+void	push_left_s(t_types *t, wchar_t *s, int *i)
 {
-	*i = t->x - *j;
 	t->mem = 0;
 	if (t->precision >= 0)
 	{
@@ -66,7 +65,6 @@ void	push_left_s(t_types *t, wchar_t *s, int *i, int *j)
 
 void	push_right_s(t_types *t, wchar_t *s, int *i, int *j)
 {
-	*i = t->x - *j;
 	t->mem = *j;
 	if (t->precision >= 0)
 	{
@@ -108,7 +106,13 @@ void	tab_upper_s(t_types *t, wchar_t *s, int *i, int *j)
 	t->upper_dst = ft_strnew_w(t->x + 1);
 	ft_memset_w(t->upper_dst, 0, t->x + 1);
 	if (t->sig2 > 0)
-		push_left_s(t, s, i, j);
+	{
+		*i = t->x - *j;
+		push_left_s(t, s, i);
+	}
 	else
+	{
+		*i = t->x - *j;
 		push_right_s(t, s, i, j);
+	}
 }
