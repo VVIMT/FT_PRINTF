@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include <inttypes.h>
 # include <wchar.h>
 
 typedef struct	s_types
