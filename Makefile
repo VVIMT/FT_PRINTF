@@ -45,10 +45,10 @@ obj:
 	@mkdir -p $@/libft
 
 obj/%.o: src/%.c
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+	clang -c $(CFLAGS) $< -o $@
 
 obj/libft/%.o: libft/%.c
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+	clang -c $(CFLAGS) $< -o $@
 
 $(NAME): $(OBJS)
 	$(AR) -rcs $(NAME) $^

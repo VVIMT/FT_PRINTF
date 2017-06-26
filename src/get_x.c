@@ -12,11 +12,25 @@
 
 #include "ft_printf.h"
 
+char	*reset(char *str)
+{
+	int i;
+
+	i = 0;
+	if (str)
+	{
+		while(str[i])
+			str[i++] = 0;
+		return (str);
+	}
+	return (NULL);
+}
+
 int		get_x(t_types *t, uintmax_t hex, int upper_case)
 {
 	t->hex = hex;
 	t->tmp = ft_itoa_base_u(hex, 16, upper_case);
-	t->tmp[0] = (hex == 0 && t->precision == 0) ? 0 : t->tmp[0];
+	t->tmp = (hex == 0 && t->precision == 0) ? reset(t->tmp) : t->tmp;
 	t->x = ft_strlen(t->tmp);
 	t->x = (t->precision >= 0 && t->precision > t->x) ? t->precision : t->x;
 	t->start = (t->sig4 > 0 && (hex > 0 || t->pointer == 1)) ? 2 : 0;
@@ -35,7 +49,7 @@ int		get_x(t_types *t, uintmax_t hex, int upper_case)
 	ft_bzero(t->tmp, t->x + 1);
 	t->ret = t->x;
 	flag_field_x(t, &upper_case);
-	write(1, t->str, t->ret);
+	write(1, t->tmp, t->ret);
 	free(t->str);
 	return (t->ret);
 }
