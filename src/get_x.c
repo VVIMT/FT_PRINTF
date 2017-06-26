@@ -34,8 +34,8 @@ int		get_x(t_types *t, uintmax_t hex, int upper_case)
 	t->x = ft_strlen(t->tmp);
 	t->x = (t->precision >= 0 && t->precision > t->x) ? t->precision : t->x;
 	t->start = (t->sig4 > 0 && (hex > 0 || t->pointer == 1)) ? 2 : 0;
-	t->str = ft_strnew(t->x + t->start + 2);
-	ft_memset(t->str, 0, t->x + t->start + 2);
+	t->str = ft_strnew(t->x + t->start + 1);
+	ft_memset(t->str, 0, t->x + t->start + 1);
 	t->y = ft_strlen(t->tmp);
 	while (--t->y >= 0)
 		t->str[--t->x] = t->tmp[t->y];
@@ -49,7 +49,7 @@ int		get_x(t_types *t, uintmax_t hex, int upper_case)
 	ft_bzero(t->tmp, t->x + 1);
 	t->ret = t->x;
 	flag_field_x(t, &upper_case);
-	write(1, t->tmp, t->ret);
+	write(1, t->str, t->ret);
 	free(t->str);
 	return (t->ret);
 }
