@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 00:02:17 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/28 20:35:06 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/29 21:02:10 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		get_x(t_types *t, uintmax_t hex, int upper_case)
 {
 	t->hex = hex;
 	t->tmp = ft_itoa_base_u(hex, 16, upper_case);
-	t->tmp = (hex == 0 && t->precision == 0) ? reset(t->tmp) : t->tmp;
+	t->tmp = (t->tmp && hex == 0 && t->precision == 0) ? reset(t->tmp) : t->tmp;
 	t->x = ft_strlen(t->tmp);
 	t->x = (t->precision >= 0 && t->precision > t->x) ? t->precision : t->x;
 	t->start = (t->sig4 > 0 && (hex > 0 || t->pointer == 1)) ? 2 : 0;

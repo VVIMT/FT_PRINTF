@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 00:01:09 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/28 23:07:46 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/29 21:04:33 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void			tab_upper_s(t_types *t, wchar_t *s, int *i, int *j);
 int				get_c(t_types *t, wchar_t c, int i);
 void			c_in_tab(t_types *t, wchar_t c, int *i);
 char			*ft_itoa_base_u(uintmax_t value, int base, int upper_case);
-void			fill_tab(t_types *t, uintmax_t lvalue, int base);
+void			fill_tab(char *str, t_types *t, uintmax_t lvalue, int base);
 wchar_t			*unicode_to_utf8(wchar_t c, wchar_t *b, int *i);
 
 #endif

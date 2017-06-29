@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/20 00:00:52 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/20 00:00:54 by vinvimo          ###   ########.fr       */
+/*   Created: 2017/06/29 20:37:25 by vinvimo           #+#    #+#             */
+/*   Updated: 2017/06/29 21:24:55 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*ft_itoa_base_u(uintmax_t value, int base, int upper_case)
 {
 	uintmax_t	nb;
 	uintmax_t	lvalue;
+	char		*str;
 	t_types		t;
 
 	lvalue = value;
@@ -27,31 +28,30 @@ char	*ft_itoa_base_u(uintmax_t value, int base, int upper_case)
 		t.n++;
 	}
 	nb = t.n;
-	if (!(t.str = (char*)malloc(sizeof(char) * nb)))
+	if (!(str = (char*)malloc(sizeof(char) * (nb + 2))))
 		return (NULL);
-	while (nb + 1 > 0)
-		t.str[nb--] = 0;
+	ft_bzero(str, nb + 2);
 	if (value == 0)
 	{
-		t.str[0] = '0';
-		return (t.str);
+		str[0] = '0';
+		return (str);
 	}
 	t.upper_case = upper_case;
-	fill_tab(&t, lvalue, base);
-	return (t.str);
+	fill_tab(str, &t, lvalue, base);
+	return (str);
 }
 
-void	fill_tab(t_types *t, uintmax_t lvalue, int base)
+void	fill_tab(char *str, t_types *t, uintmax_t lvalue, int base)
 {
 	t->n--;
 	while (t->n >= 0 && lvalue > 0)
 	{
 		if (lvalue % base <= 9)
-			t->str[t->n] = lvalue % base + '0';
+			str[t->n] = lvalue % base + '0';
 		else if (lvalue % base > 9 && t->upper_case == 0)
-			t->str[t->n] = lvalue % base - 10 + 'a';
+			str[t->n] = lvalue % base - 10 + 'a';
 		else if (lvalue % base > 9 && t->upper_case == 1)
-			t->str[t->n] = lvalue % base - 10 + 'A';
+			str[t->n] = lvalue % base - 10 + 'A';
 		lvalue = lvalue / base;
 		t->n--;
 	}

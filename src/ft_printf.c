@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 23:59:05 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/28 23:10:02 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/29 21:18:16 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ size_t	variable(const char *format, va_list *ap, va_list *ap2, t_types *t)
 {
 	int	ret;
 
+	initialize(t);
 	ret = -1;
 	t->syntax = 0;
 	t->index++;
@@ -71,7 +72,6 @@ int		ft_printf(const char *restrict format, ...)
 	{
 		ret = 0;
 		va_copy(ap2, ap);
-		initialize(&t);
 		if (format[t.index] == '%')
 			ret = variable(format, &ap, &ap2, &t);
 		else if (format[t.index])
