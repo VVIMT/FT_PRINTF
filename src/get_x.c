@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 00:02:17 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/29 21:02:10 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/29 22:30:28 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		get_x(t_types *t, uintmax_t hex, int upper_case)
 		t->str[--t->x] = t->tmp[t->y];
 	while (--t->x >= 0)
 		t->str[t->x] = '0';
-	free(t->tmp);
+	(t->tmp ? free(t->tmp) : t->tmp);
 	t->x = ft_strlen(t->str) + t->start;
 	if ((size_t)(t->width) > ft_strlen(t->str) + t->start)
 		t->x = t->width;
@@ -50,7 +50,7 @@ int		get_x(t_types *t, uintmax_t hex, int upper_case)
 	t->ret = t->x;
 	flag_field_x(t, &upper_case);
 	write(1, t->str, t->ret);
-	free(t->str);
+	(t->str ? free(t->str) : t->str);
 	return (t->ret);
 }
 
@@ -97,6 +97,6 @@ void	flag_field_x(t_types *t, int *upper_case)
 	else if (t->sig2 > 0
 		&& (t->hex != 0 || t->precision != 0 || t->pointer == 1))
 		push_left_x(t, upper_case);
-	free(t->str);
+	(t->str ? free(t->str) : t->str);
 	t->str = t->tmp;
 }

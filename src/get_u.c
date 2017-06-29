@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 23:59:31 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/29 21:01:54 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/29 22:28:32 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		get_u(t_types *t, uintmax_t u)
 		t->str[--t->x] = t->tmp[t->y];
 	while (--t->x >= 0)
 		t->str[t->x] = '0';
-	free(t->tmp);
+	(t->tmp ? free(t->tmp) : t->tmp);
 	t->x = ft_strlen(t->str);
 	if ((size_t)(t->width) > ft_strlen(t->str))
 		t->x = t->width;
@@ -37,7 +37,7 @@ int		get_u(t_types *t, uintmax_t u)
 	t->ret = t->x;
 	flag_field_u(t);
 	write(1, t->str, t->ret);
-	free(t->str);
+	(t->str ? free(t->str) : t->str);
 	return (t->ret);
 }
 
@@ -59,6 +59,6 @@ void	flag_field_u(t_types *t)
 		while (t->str[t->y])
 			t->tmp[t->x++] = t->str[t->y++];
 	}
-	free(t->str);
+	(t->str ? free(t->str) : t->str);
 	t->str = t->tmp;
 }

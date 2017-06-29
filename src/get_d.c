@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 23:59:16 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/29 21:01:11 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/29 22:24:05 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		get_d(t_types *t, intmax_t d)
 		t->str[--t->x] = t->tmp[t->y];
 	while (--t->x >= 0)
 		t->str[t->x] = '0';
-	free(t->tmp);
+	(t->tmp ? free(t->tmp) : t->tmp);
 	t->x = ft_strlen(t->str);
 	if ((size_t)(t->width) > ft_strlen(t->str))
 		t->x = t->width;
@@ -37,7 +37,7 @@ int		get_d(t_types *t, intmax_t d)
 	t->ret = t->x;
 	flag_field_d(t);
 	write(1, t->str, t->ret);
-	free(t->str);
+	(t->str ? free(t->str) : t->str);
 	return (t->ret);
 }
 
@@ -92,6 +92,6 @@ void	flag_field_d(t_types *t)
 		push_right_d(t);
 	else if (t->sig2 > 0 && (t->d != 0 || t->precision != 0))
 		push_left_d(t);
-	free(t->str);
+	(t->str ? free(t->str) : t->str);
 	t->str = t->tmp;
 }
