@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 00:02:17 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/22 21:05:52 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/28 20:35:06 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*reset(char *str)
 	i = 0;
 	if (str)
 	{
-		while(str[i])
+		while (str[i])
 			str[i++] = 0;
 		return (str);
 	}

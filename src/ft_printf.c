@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 23:59:05 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/23 22:45:18 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/28 23:10:02 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	loop(const char *format, va_list *ap, t_types *t, int *ret)
 	{
 		if (format[t->index] == '%')
 			*ret = get_s(t, "%", 1);
-		else if (var_1(format, ap, t, ret) >= 0)
+		else if (var_1(format[t->index], ap, t, ret) >= 0)
 			break ;
-		else if (var_2(format, ap, t, ret) >= 0)
+		else if (var_2(format[t->index], ap, t, ret) >= 0)
 			break ;
-		else if (var_3(format, ap, t, ret) >= 0)
+		else if (var_3(format[t->index], ap, t, ret) >= 0)
 			break ;
-		else if (var_4(format, ap, t, ret) >= 0)
+		else if (var_4(format[t->index], ap, t, ret) >= 0)
 			break ;
-		else if (var_5(format, ap, t, ret) >= 0)
+		else if (var_5(format[t->index], ap, t, ret) >= 0)
 			break ;
-		else if (var_6(format, ap, t, ret) >= 0)
+		else if (var_6(format[t->index], ap, t, ret) >= 0)
 			break ;
 		break ;
 	}

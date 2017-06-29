@@ -6,7 +6,7 @@
 /*   By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 00:01:09 by vinvimo           #+#    #+#             */
-/*   Updated: 2017/06/24 09:26:32 by vinvimo          ###   ########.fr       */
+/*   Updated: 2017/06/28 23:07:46 by vinvimo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ void			get_flag(const char *format, t_types *t);
 size_t			get_width(const char *format, t_types *t);
 int				get_precision(const char *format, t_types *t, long precision);
 size_t			get_length(const char *format, t_types *t);
-int				var_1(const char *format, va_list *ap, t_types *t, int *ret);
-int				var_2(const char *format, va_list *ap, t_types *t, int *ret);
-int				var_3(const char *format, va_list *ap, t_types *t, int *ret);
-int				var_4(const char *format, va_list *ap, t_types *t, int *ret);
-int				var_5(const char *format, va_list *ap, t_types *t, int *ret);
-int				var_6(const char *format, va_list *ap, t_types *t, int *ret);
+int				var_1(char c, va_list *ap, t_types *t, int *ret);
+int				var_2(char c, va_list *ap, t_types *t, int *ret);
+int				var_3(char c, va_list *ap, t_types *t, int *ret);
+int				var_4(char c, va_list *ap, t_types *t, int *ret);
+int				var_5(char c, va_list *ap, t_types *t, int *ret);
+int				var_6(char c, va_list *ap, t_types *t, int *ret);
 int				get_d(t_types *t, intmax_t d);
 void			flag_field_d(t_types *t);
 int				get_u(t_types *t, uintmax_t u);
@@ -87,6 +87,5 @@ void			c_in_tab(t_types *t, wchar_t c, int *i);
 char			*ft_itoa_base_u(uintmax_t value, int base, int upper_case);
 void			fill_tab(t_types *t, uintmax_t lvalue, int base);
 wchar_t			*unicode_to_utf8(wchar_t c, wchar_t *b, int *i);
-void			wchar_length(wchar_t *b, int *i, wchar_t *b_static);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: vinvimo <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/20 19:26:58 by vinvimo           #+#    #+#              #
-#    Updated: 2017/06/22 23:26:50 by vinvimo          ###   ########.fr        #
+#    Updated: 2017/06/28 20:36:30 by vinvimo          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -62,7 +62,7 @@ libfttest: $(NAME) obj/main.o
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) libft/*.a
+	$(RM) libft/libft.a
 	$(RM) -rf obj
 
 re: fclean all
